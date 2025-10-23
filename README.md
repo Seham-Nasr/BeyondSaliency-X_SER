@@ -4,3 +4,30 @@ Current saliency-based methods, adapted from vision, highlight spectrogram regio
 
 <img width="1782" height="1470" alt="image" src="https://github.com/user-attachments/assets/54e6e759-160d-4ac2-bbda-cdd37562f0f3" />
 
+Experiments on benchmark SER datasets show that our approach improves explanation quality by explicitly linking salient regions to theory-driven speech emotions expert-referenced acoustics. Compared to standard saliency methods, it provides more understandable and plausible
+explanations of SER models, offering a foundational step towards trustworthy speech-based affective computing.
+
+
+## Quickstart
+
+### GradCAM
+```python
+
+
+```
+
+
+
+## Reproduce our results
+```python
+
+
+```
+
+
+### 📃 Citation
+```
+@article{
+
+}
+```
