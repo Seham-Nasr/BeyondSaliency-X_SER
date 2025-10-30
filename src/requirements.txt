@@ -1,0 +1,9 @@
+pandas
+matplotlib
+librosa
+numpy
+scikit-learn
+soundfile
+opensmile
+tqdm
+captum
