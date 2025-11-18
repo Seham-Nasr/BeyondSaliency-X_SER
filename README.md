@@ -19,10 +19,32 @@ explanations of SER models, offering a foundational step towards trustworthy spe
 
 
 ## Reproduce our results
+First, get the dataset from datasoucres one of the them is Kaggel as below
+ #### Toronto emotional speech set (TESS)
 ```python
+import kagglehub
 
+# Download latest version
+path = kagglehub.dataset_download("ejlok1/toronto-emotional-speech-set-tess")
+
+print("Path to dataset files:", path)
 
 ```
+#### Crowd Sourced Emotional Multimodal Actors Dataset (CREMA-D)
+
+```python
+import kagglehub
+
+# Download latest version
+path = kagglehub.dataset_download("ejlok1/cremad")
+
+print("Path to dataset files:", path)
+```
+
+Second, Rum the data processing for each dataset Follow the python command:
+
+```python python Models/SER_data.py --data_path ./TESS_df.pkl --dataset_name TESS --sample_rate 16000 ```
+
 
 
 ### 📃 Citation
