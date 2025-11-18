@@ -19,7 +19,14 @@ explanations of SER models, offering a foundational step towards trustworthy spe
 
 
 ## Reproduce our results
-First, get the dataset from datasoucres one of the them is Kaggel as below
+
+#### 1. Install Dependencies
+Make sure to install all required packages:
+```bash  pip install -r src/requirements.txt ```
+
+#### 2. Download the Datasets
+Download the dataset from your chosen data source (e.g., Kaggle) and place it inside the project directory.
+
  #### Toronto emotional speech set (TESS)
 ```python
 import kagglehub
@@ -40,11 +47,26 @@ path = kagglehub.dataset_download("ejlok1/cremad")
 
 print("Path to dataset files:", path)
 ```
+#### 3. Run data processing
+Make sure to use the correct data path and provide the parameters for your dataset. Example command for the TESS dataset:
 
-Second, Rum the data processing for each dataset Follow the python command:
+```python src/Models/SER_data.py --data_path ./TESS_df.pkl --dataset_name TESS --sample_rate 16000 ```
 
-```python python Models/SER_data.py --data_path ./TESS_df.pkl --dataset_name TESS --sample_rate 16000 ```
+You can replace ```./TESS_df.pkl```, ```TESS```, and ```16000``` with your dataset’s file path, name, and sampling rate respectively.
 
+
+#### 4. Run Model training
+Train the model using the processed dataset:
+
+```bash
+python src/Models/trainSER.py \
+    --df_path data/TESS_df.pkl \
+    --batch_size 32 \
+    --epochs 50 \
+    --lr 3e-4 \
+    --checkpoint src/Models/checkpoint/best_model_tess.pth ```
+
+#### 4. Run the Explanation generation
 
 
 ### 📃 Citation
