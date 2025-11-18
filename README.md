@@ -62,11 +62,13 @@ Train the model using the processed dataset; Example command for the TESS datase
 ```python src/Models/trainSER.py --df_path data/TESS_df.pkl --batch_size 32 --epochs 50 --lr 3e-4 --checkpoint src/Models/checkpoint/best_model_tess.pth```
 
 #### 4. Run the Explanation generation
+Generate the explanation of a selected dataset, XAI_methods (CRP, OS, or CRP OS ) and a selected emotions (e.g., happy sad neutral); an example command for TESS dataset:
 
+```python -m XAI.xai_main --data_setnames Crema-D --XAI_methods GradCAM --emotions angry```
 
 ### 📃 Citation
 ```
 @article{
-
+Nasr, S., Ren, Z., & Johnson, D. (2025). Beyond saliency: Enhancing explanation of speech emotion recognition with expert-referenced acoustic cues. ArXiv. https://arxiv.org/abs/2511.11691
 }
 ```
