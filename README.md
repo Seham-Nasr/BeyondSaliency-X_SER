@@ -58,13 +58,8 @@ You can replace ```./TESS_df.pkl```, ```TESS```, and ```16000``` with your datas
 #### 4. Run Model training
 Train the model using the processed dataset:
 
-```bash
-python src/Models/trainSER.py \
-    --df_path data/TESS_df.pkl \
-    --batch_size 32 \
-    --epochs 50 \
-    --lr 3e-4 \
-    --checkpoint src/Models/checkpoint/best_model_tess.pth ```
+
+```python src/Models/trainSER.py --df_path data/TESS_df.pkl --batch_size 32 --epochs 50 --lr 3e-4 --checkpoint src/Models/checkpoint/best_model_tess.pth```
 
 #### 4. Run the Explanation generation
 
