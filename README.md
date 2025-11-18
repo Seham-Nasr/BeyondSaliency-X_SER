@@ -69,6 +69,8 @@ Generate the explanation of a selected dataset, XAI_methods (CRP, OS, or CRP OS 
 ### 📃 Citation
 ```
 @article{
-Nasr, S., Ren, Z., & Johnson, D. (2025). Beyond saliency: Enhancing explanation of speech emotion recognition with expert-referenced acoustic cues. ArXiv. https://arxiv.org/abs/2511.11691
+Nasr, S., Ren, Z., & Johnson, D. (2025). 
+Beyond saliency: Enhancing explanation of speech emotion recognition with expert-referenced acoustic cues.
+ArXiv. https://arxiv.org/abs/2511.11691
 }
 ```
