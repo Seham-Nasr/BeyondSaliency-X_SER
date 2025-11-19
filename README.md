@@ -25,13 +25,13 @@ If you find ```Beyond Saliency``` framework useful for your research, please con
 ## Reproduce our results
 ```Beyond Saliency``` is currently under active development, but it should generalize to most speech-emotion datasets, producing saliency maps enriched with relevant acoustic-context cues.
  
-#### 1. Install Dependencies
+### 1. Install Dependencies
 Make sure to install all required packages:
 ```shell
   $pip install -r src/requirements.txt
    ```
 
-#### 2. Download the Datasets
+### 2. Download the Datasets
 Download the dataset from your chosen data source (e.g., Kaggle) and place it inside the project directory.
 
  #### Toronto emotional speech set (TESS)
@@ -54,7 +54,7 @@ path = kagglehub.dataset_download("ejlok1/cremad")
 
 print("Path to dataset files:", path)
 ```
-#### 3. Run data processing
+### 3. Run data processing
 Make sure to use the correct data path and provide the parameters for your dataset. Example command for the TESS dataset:
 
 ```python src/Models/SER_data.py --data_path ./TESS_df.pkl --dataset_name TESS --sample_rate 16000 ```
@@ -62,13 +62,13 @@ Make sure to use the correct data path and provide the parameters for your datas
 You can replace ```./TESS_df.pkl```, ```TESS```, and ```16000``` with your dataset’s file path, name, and sampling rate respectively.
 
 
-#### 4. Run Model training
+### 4. Run Model training
 Train the model using the processed dataset; Example command for the TESS dataset:
 
 
 ```python src/Models/trainSER.py --df_path data/TESS_df.pkl --batch_size 32 --epochs 50 --lr 3e-4 --checkpoint src/Models/checkpoint/best_model_tess.pth```
 
-#### 4. Run the Explanation generation using Beyond Saliency framework
+### 5. Run the Explanation generation using Beyond Saliency framework
 Generate the explanation of a selected dataset, XAI_methods (CRP, OS, or CRP OS ) and a selected emotions (e.g., happy sad neutral); an example command for TESS dataset:
 
 ```python -m XAI.xai_main --data_setnames Crema-D --XAI_methods GradCAM --emotions angry```
