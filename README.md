@@ -8,7 +8,7 @@ Experiments on benchmark SER datasets show that our approach improves explanatio
 explanations of SER models, offering a foundational step towards trustworthy speech-based affective computing.
 
 
-If you find ```Beyond Saliency``` framework useful for your research, please consider citing our ([paper](https://arxiv.org/abs/2511.11691)):
+If you find ```Beyond Saliency``` framework useful for your research, please consider citing our [paper](https://arxiv.org/abs/2511.11691):
 ### 📃 Citation
 ```
 @misc{nasr2025saliencyenhancingexplanationspeech,
@@ -23,10 +23,13 @@ If you find ```Beyond Saliency``` framework useful for your research, please con
 ```
 
 ## Reproduce our results
-
+```Beyond Saliency``` is currently under active development, but should be mostly possible to be applied on any speech emotions data to generate saliency maps enriched with acoustics cues context.
+ 
 #### 1. Install Dependencies
 Make sure to install all required packages:
-```bash  pip install -r src/requirements.txt ```
+```shell
+  $pip install -r src/requirements.txt
+   ```
 
 #### 2. Download the Datasets
 Download the dataset from your chosen data source (e.g., Kaggle) and place it inside the project directory.
@@ -71,5 +74,7 @@ Generate the explanation of a selected dataset, XAI_methods (CRP, OS, or CRP OS 
 ```python -m XAI.xai_main --data_setnames Crema-D --XAI_methods GradCAM --emotions angry```
 
 Alternatively, you can use the Jupyter Notebook located at ```src/XAI/BeyondSaliency.ipynb```.
+
+## License
 
 
