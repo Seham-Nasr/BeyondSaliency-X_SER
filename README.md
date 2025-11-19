@@ -75,6 +75,12 @@ Generate the explanation of a selected dataset, XAI_methods (CRP, OS, or CRP OS 
 
 Alternatively, you can use the Jupyter Notebook located at ```src/XAI/BeyondSaliency.ipynb```.
 
+
+## ACKNOWLEDGMENTS
+This work is associated with the Transregional Collaborative Research Centre (TRR) 318 “Constructing Explainability” and funded by Bielefeld University.
+
 ## License
 
+This project is licensed under the **GPL-3.0 License**.  
+See the [LICENSE](LICENSE) file for details.
 
