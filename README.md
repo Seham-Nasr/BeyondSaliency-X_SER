@@ -23,7 +23,7 @@ If you find ```Beyond Saliency``` framework useful for your research, please con
 ```
 
 ## Reproduce our results
-```Beyond Saliency``` is currently under active development, but should be mostly possible to be applied on any speech emotions data to generate saliency maps enriched with acoustics cues context.
+```Beyond Saliency``` is currently under active development, but it should generalize to most speech-emotion datasets, producing saliency maps enriched with relevant acoustic-context cues.
  
 #### 1. Install Dependencies
 Make sure to install all required packages:
