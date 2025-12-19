@@ -1,8 +1,14 @@
-## BEYOND SALIENCY: ENHANCING EXPLANATION OF SPEECH EMOTION RECOGNITION WITH EXPERT-REFERENCED ACOUSTIC CUES
+<div align="center">
+
+# BEYOND SALIENCY Explanation
+
+![model_image](src/XAI/method.jpg)
+</div>
+
+Beyond saliency: Enhancing explanation of speech emotion recognition with expert-referenced acoustic cues [[**paper**](https://arxiv.org/abs/2511.11691)]
+
 
 Current saliency-based methods, adapted from vision, highlight spectrogram regions but fail to show whether these regions correspond to meaningful acoustic markers of emotion, limiting faithfulness and interpretability. We propose a framework that overcomes these limitations by quantifying the magnitudes of cues within salient regions. This clarifies “what” is highlighted and connects it to “why” it matters, linking saliency to expert-referenced acoustic cues of speech emotions.
-
-<img width="1782" height="1470" alt="image" src="https://github.com/user-attachments/assets/54e6e759-160d-4ac2-bbda-cdd37562f0f3" />
 
 Experiments on benchmark SER datasets show that our approach improves explanation quality by explicitly linking salient regions to theory-driven speech emotions expert-referenced acoustics. Compared to standard saliency methods, it provides more understandable and plausible
 explanations of SER models, offering a foundational step towards trustworthy speech-based affective computing.
