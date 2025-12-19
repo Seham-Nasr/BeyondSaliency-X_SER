@@ -14,20 +14,6 @@ Experiments on benchmark SER datasets show that our approach improves explanatio
 explanations of SER models, offering a foundational step towards trustworthy speech-based affective computing.
 
 
-If you find ```Beyond Saliency``` framework useful for your research, please consider citing our [paper](https://arxiv.org/abs/2511.11691):
-### 📃 Citation
-```
-@misc{nasr2025saliencyenhancingexplanationspeech,
-      title={Beyond saliency: enhancing explanation of speech emotion recognition with expert-referenced acoustic cues}, 
-      author={Seham Nasr and Zhao Ren and David Johnson},
-      year={2025},
-      eprint={2511.11691},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2511.11691}, 
-}
-```
-
 ## Reproduce our results
 ```Beyond Saliency``` is currently under active development, but it should generalize to most speech-emotion datasets, producing saliency maps enriched with relevant acoustic-context cues.
  
@@ -81,6 +67,19 @@ Generate the explanation of a selected dataset, XAI_methods (CRP, OS, or CRP OS 
 
 Alternatively, you can use the Jupyter Notebook located at ```src/XAI/BeyondSaliency.ipynb```.
 
+If you find ```Beyond Saliency``` framework useful for your research, please consider citing our [paper](https://arxiv.org/abs/2511.11691):
+### 📃 Citation
+```
+@misc{nasr2025saliencyenhancingexplanationspeech,
+      title={Beyond saliency: enhancing explanation of speech emotion recognition with expert-referenced acoustic cues}, 
+      author={Seham Nasr and Zhao Ren and David Johnson},
+      year={2025},
+      eprint={2511.11691},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2511.11691}, 
+}
+```
 
 ## ACKNOWLEDGMENTS
 This work is associated with the Transregional Collaborative Research Centre (TRR) 318 “Constructing Explainability” and funded by Bielefeld University.
