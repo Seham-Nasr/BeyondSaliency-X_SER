@@ -17,6 +17,28 @@ explanations of SER models, offering a foundational step towards trustworthy spe
 ## Reproduce our results
 ```Beyond Saliency``` is currently under active development, but it should generalize to most speech-emotion datasets, producing saliency maps enriched with relevant acoustic-context cues.
  
+### Documents
+```
+src
+├── Models
+│   ├── checkpoint
+│   ├── SER_data.py
+│   ├── trainSER.py
+│   ├── README.md
+│   └── utils.py
+├── Notebooks
+│   ├── BB_TESS.ipynb
+│   ├── Crema-D.ipynb
+│   └── data_Viz.ipynb
+└── XAI
+    ├── xai_main.py
+    ├── exp_analysis.py
+    ├── features.py
+    ├── supplies.py
+    ├── xAIultils.py
+    └── BeyondSaliency.ipynb
+```
+
 ### 1. Install Dependencies
 Make sure to install all required packages:
 ```shell
