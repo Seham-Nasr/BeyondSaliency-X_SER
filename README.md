@@ -36,16 +36,17 @@ src
     ├── features.py
     ├── supplies.py
     ├── xAIultils.py
+│   ├── README.md
     └── BeyondSaliency.ipynb
 ```
 
 #### `src/Models`
-Core implementation for Speech Emotion Recognition (SER).
-- **checkpoint/** – Saved model weights and training checkpoints.
-- **SER_data.py** – Data loading and preprocessing utilities for SER datasets.
-- **trainSER.py** – Training pipeline for SER models.
+Black-Box implementation for Speech Emotion Recognition (SER). Here you can replace the existing DNN SER model with other DNN architecture.
+- **checkpoint/** – Saved model weights and training checkpoints, for fast installation.
+- **SER_data.py** – Data loading and preprocessing utilities for SER datasets. In case you want to use another SER dataset, you just need to add your own functions and classes in this file to replace our dataset. 
+- **trainSER.py** – Train a CNN (ResNet-like) for Speech Emotion Recognition on precomputed spectrograms.
 - **utils.py** – Shared helper functions (metrics, audio processing, etc.).
-- **README.md** – Model-specific documentation and usage notes.
+- **README.md** – Model-specific documentation and further usage notes.
 
 #### `src/Notebooks`
 Exploratory analysis and experimentation.
@@ -54,14 +55,17 @@ Exploratory analysis and experimentation.
 - **data_Viz.ipynb** – Dataset statistics and feature visualizations.
 
 #### `src/XAI`
-Explainable AI (XAI) components for interpreting SER models.
+Explainable AI (XAI) components for interpreting SER models with Beyond Saliency framework. 
 - **xai_main.py** – Entry point for generating explanations.
 - **exp_analysis.py** – Quantitative and qualitative explanation analysis.
 - **features.py** – Feature extraction and attribution handling.
 - **supplies.py** – Supporting utilities for XAI workflows.
 - **xAIultils.py** – Common helper functions for explanation methods.
+- **README.md** – framework-specific documentation and further usage notes.
 - **BeyondSaliency.ipynb** – Notebook exploring advanced XAI methods beyond saliency maps.
 
+
+## Installation
 
 ### 1. Install Dependencies
 Make sure to install all required packages:
