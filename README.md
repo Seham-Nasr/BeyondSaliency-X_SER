@@ -17,7 +17,7 @@ explanations of SER models, offering a foundational step towards trustworthy spe
 ## Reproduce our results
 ```Beyond Saliency``` is currently under active development, but it should generalize to most speech-emotion datasets, producing saliency maps enriched with relevant acoustic-context cues.
  
-### Documents
+### Project Structure
 ```
 src
 ├── Models
@@ -38,6 +38,30 @@ src
     ├── xAIultils.py
     └── BeyondSaliency.ipynb
 ```
+
+#### `src/Models`
+Core implementation for Speech Emotion Recognition (SER).
+- **checkpoint/** – Saved model weights and training checkpoints.
+- **SER_data.py** – Data loading and preprocessing utilities for SER datasets.
+- **trainSER.py** – Training pipeline for SER models.
+- **utils.py** – Shared helper functions (metrics, audio processing, etc.).
+- **README.md** – Model-specific documentation and usage notes.
+
+#### `src/Notebooks`
+Exploratory analysis and experimentation.
+- **BB_TESS.ipynb** – Experiments and analysis on the TESS dataset.
+- **Crema-D.ipynb** – Experiments and analysis on the CREMA-D dataset.
+- **data_Viz.ipynb** – Dataset statistics and feature visualizations.
+
+#### `src/XAI`
+Explainable AI (XAI) components for interpreting SER models.
+- **xai_main.py** – Entry point for generating explanations.
+- **exp_analysis.py** – Quantitative and qualitative explanation analysis.
+- **features.py** – Feature extraction and attribution handling.
+- **supplies.py** – Supporting utilities for XAI workflows.
+- **xAIultils.py** – Common helper functions for explanation methods.
+- **BeyondSaliency.ipynb** – Notebook exploring advanced XAI methods beyond saliency maps.
+
 
 ### 1. Install Dependencies
 Make sure to install all required packages:
