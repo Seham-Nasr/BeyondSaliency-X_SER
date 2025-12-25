@@ -98,6 +98,8 @@ path = kagglehub.dataset_download("ejlok1/cremad")
 print("Path to dataset files:", path)
 ```
 ### 3. Run data processing
+To generate data pickle file follow the tutorial in the Notebooks ```BB_TESS.ipynb``` for TESS dataset, and ```Crema-D.ipynb``` for Crema-D dataset.
+Then;
 Make sure to use the correct data path and provide the parameters for your dataset. Example command for the TESS dataset:
 
 ```python src/Models/SER_data.py --data_path src/Models/data/TESS_df.pkl --dataset_name TESS --sample_rate 16000 ```
