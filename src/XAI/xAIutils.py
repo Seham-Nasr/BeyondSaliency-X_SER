@@ -648,32 +648,7 @@ def saliency_map_processing(upsampled_attr, predicted_class, LABEL_DICT, xai_met
     plt.close()
     return top_k_indices, top_windows, ts, saliency_map, spec_tensor, time_steps
 
-#_________________________________________________
-### Similarity temporal and semantic scores calculation
-def explanation_analysis(B_start,B_end, A_start,A_end):
-        interval =[(A_start,A_end)]
-        Scores = []
-        overlap_start = max(B_start,A_start)
-        overlap_end = min(B_end,A_end)
-        if overlap_start < overlap_end:
-            Time_duration = (overlap_end - overlap_start)
-            # print("Time duration: ",Time_duration)
-            B_duration = B_end - B_start
-            # print("B_duration:", B_duration)
-            Score = (Time_duration/B_duration)*100
-            print("The Aligned time interval is: ", [B_start, B_end])
-            # print("Socre:", Score)
 
-        else:
-            Score = 0.0
-
-        if Score != 0:
-             Scores.append(Score)
-
-        return Scores
-
-#_________________________________________________
- 
 ##________Further visualization
 def visulize_waveform(data, time_steps, xai_method, label,dataset):
     audio, sr = librosa.load(data, sr=16000)

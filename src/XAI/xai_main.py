@@ -26,6 +26,13 @@ def main():
         help="List of dataset names (e.g., Crema-D RAVDESS TESS)."
     )
     parser.add_argument(
+        "--data_path",
+        nargs="+",
+        type=str,
+        required=True,
+        help="Path to the dataset."
+    )
+    parser.add_argument(
         "--XAI_methods",
         nargs="+",
         type=str,
@@ -43,8 +50,8 @@ def main():
     args = parser.parse_args()
 
     # Iterate through all combinations of dataset, XAI method, and emotion
-    for data_setname, XAI_method, Emotion in itertools.product(
-        args.data_setnames, args.XAI_methods, args.emotions
+    for data_setname,data_path, XAI_method, Emotion in itertools.product(
+        args.data_setnames,  args.data_path,args.XAI_methods, args.emotions
     ):
         print("=========================================")
         print(f"Dataset: {data_setname}")
@@ -52,7 +59,7 @@ def main():
         print(f"Emotion: {Emotion}")
         print("=========================================")
 
-        explanation_analysis(data_setname, XAI_method, Emotion)
+        explanation_analysis(data_setname, data_path, XAI_method, Emotion)
 
 
 if __name__ == "__main__":

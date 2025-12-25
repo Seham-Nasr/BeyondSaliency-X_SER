@@ -5,24 +5,24 @@ from XAI.supplies import *
 from XAI.features import extract_egmaps, plot_feature_bars, Validation
 import torch
 
-def explanation_analysis(data_setname, XAI_method, Emotion):
+def explanation_analysis(data_setname, data_path, XAI_method, Emotion):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     #_____________________________dataset 1____________________________________
     if data_setname == "Crema-D":
-        data_path = "/homes/snasr/2026/speech26/data/Crema-D/AudioWAV/" # Path to the audio files for Crema-D
+        data_path = data_path # Path to the audio files for Crema-D
         LABEL_DICT = {0:'fear', 1:'neutral', 2:'happy',3:'angry', 4:'disgust', 5:'surprise',6:'sad'}
         LABELS = list(LABEL_DICT.values())
         #process_dataset(data_path=data_path,data_setname=data_setname)
-        ds_train, ds_test, ds_val, dl_train, dl_test, dl_val, LABELS =  process_dataset(data_path='/homes/snasr/2026/speech26/data/Crema-D/AudioWAV/',
+        ds_train, ds_test, ds_val, dl_train, dl_test, dl_val, LABELS =  process_dataset(data_path= data_path,
                                                                             data_setname='Crema-D',
-                                                                            pickle_file='/homes/snasr/2026/speech26/data/Crema-D.pkl',
+                                                                            pickle_file='../src/Models/data/Crema_D.pkl',
                                                                             label_column='Emotions'
                                                                             )
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         # Load the model
-        classes = 7
+        classes = 6
         model = ResNetSmall(classes)
-        checkpoint_path = "/homes/snasr/2026/speech26/Models/checkpoint/best_model_Crema-D.pth"
+        checkpoint_path = "../src/Models/checkpoint/best_model_Crema.pth"
         checkpoint = torch.load(checkpoint_path)
         model.load_state_dict(checkpoint)
         model.to(device)
@@ -76,15 +76,7 @@ def explanation_analysis(data_setname, XAI_method, Emotion):
         print(f"True Label: {label} (Maps to: {LABEL_DICT[label]})")
 
         # XAI
-        if XAI_method == "GradCAM":
-            windows = GradCAM(model, data, LABEL_DICT, data_setname, LABEL_DICT[label], device)
-            print("eGMAPS feature extraction in progress...")
-            print("Time steps...", windows)
-            # Extract eGMAPS features
-            lld1 = extract_egmaps(data, windows, sr=16000)
-            # plot selected acoustic features
-            plot_feature_bars(lld1, row=0, aggregate=True, top_n=15)
-        elif XAI_method == "Occlusion":
+        if XAI_method == "Occlusion":
             windows = Occlusion_xai(model, data, LABEL_DICT, data_setname, LABEL_DICT[label], device)
             print("eGMAPS feature extraction in progress...")
             print("Time steps...", windows)
@@ -112,20 +104,20 @@ def explanation_analysis(data_setname, XAI_method, Emotion):
         
  #____________________________________dataset: 2_________________________
     elif data_setname == "TESS":
-        data_path = "/homes/snasr/2026/speech26/data/TESS/tess/tess/"# Path to the audio files for Crema-D
+        data_path = "../src/Models/TESS/tess/tess/"# Path to the audio files for Crema-D
         LABEL_DICT = {0:'fear', 1:'neutral', 2:'happy',3:'angry', 4:'disgust', 5:'surprise',6:'sad'}
         LABELS = list(LABEL_DICT.values())
         ds_train, ds_test, ds_val, dl_train, dl_test, dl_val, LABELS = process_dataset(
-                                                                        data_path='/homes/snasr/2026/speech26/data/TESS/tess/tess/',
+                                                                        data_path='../src/Models/data/TESS/tess/tess/',
                                                                         data_setname='TESS',
-                                                                        pickle_file='/homes/snasr/2026/speech26/data/TESS_df.pkl',
+                                                                        pickle_file='../src/Models/data/TESS_df.pkl',
                                                                         label_column='Emotions'
                                                                     )
         
         # Load the model
         classes = 7
         model = ResNetSmall(classes)
-        checkpoint_path = "/homes/snasr/2026/speech26/Models/checkpoint/best_model_tess.pth"
+        checkpoint_path = "../src/Models/checkpoint/best_model_tess.pth"
         model = ResNetSmall(len(LABELS))
         model.load_state_dict(torch.load(checkpoint_path ))
         model.to('cuda')
@@ -163,16 +155,7 @@ def explanation_analysis(data_setname, XAI_method, Emotion):
         print("True Label: ",label, "Maps to: ", LABEL_DICT[label])
         #data = "../" + data
         # XAI 
-        if XAI_method == "GradCAM":
-                windows = GradCAM(model, data, LABEL_DICT, data_setname,LABEL_DICT[label], device)
-                print("eGMAPS feature extraction in progress...")
-                print("Time steps...", windows)
-                # Extract eGMAPS features
-                lld1 = extract_egmaps(data, windows, sr=16000)
-                # plot selected acoustic features
-                plot_feature_bars(lld1, row=0, aggregate=True, top_n=15)
-                    
-        elif XAI_method == "Occlusion":
+        if XAI_method == "Occlusion":
                 windows = Occlusion_xai(model, data, LABEL_DICT, data_setname,LABEL_DICT[label], device)
                 
                 print("eGMAPS feature extraction in progress...")
@@ -193,7 +176,7 @@ def explanation_analysis(data_setname, XAI_method, Emotion):
                 stats = plot_feature_bars(lld1, row=0, aggregate=True, top_n=15)
                 print("\n______________\n",stats)
         else:
-                raise ValueError("Invalid XAI method selected. Choose either 'GradCAM' or 'Occlusion'.")
+                raise ValueError("Invalid XAI method selected. Choose either 'CRP' or 'Occlusion'.")
     else:
         raise ValueError("Invalid dataset name. Choose from 'Crema-D', 'SAVEE', 'TESS', or 'RAVDESS'.")
            
