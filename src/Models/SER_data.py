@@ -72,7 +72,7 @@ def CremaD_processing(data_path, data_setname, sample_rate=16000):
     LABEL_DICT = {0:'fear', 1:'neutral', 2:'happy',3:'angry', 4:'disgust', 5:'surprise',6:'sad'}
     LABELS = list(LABEL_DICT.values())
     data_path = data_path
-    Crema_df = pd.read_pickle('Crema_df.pkl')
+    Crema_df = pd.read_pickle(data_path)
      
     # Split the DataFrame into training and testing sets
     X= Crema_df.iloc[:, 1:].values
@@ -267,12 +267,26 @@ def main():
     parser.add_argument("--sample_rate", type=int, default=16000, help="Audio sample rate")
     args = parser.parse_args()
 
-    print(f"[INFO] Loading dataset '{args.dataset_name}' from {args.data_path}")
-    outputs = TESS_processing(args.data_path, args.dataset_name, args.sample_rate)
+    print(f".. Loading dataset '{args.dataset_name}' from {args.data_path}")
+    DATASET_DISPATCHER = {
+    "TESS": TESS_processing,
+    "Crema-D": CremaD_processing,
+    "SAVEE": SAVEE_processing,
+    "RAVDESS": RAVDESS_processing,
+}
+
+    if args.dataset_name not in DATASET_DISPATCHER:
+        raise ValueError(f"Unsupported dataset: {args.dataset_name}")
+
+    outputs = DATASET_DISPATCHER[args.dataset_name](
+        args.data_path,
+        args.dataset_name,
+        args.sample_rate
+    )
 
     ds_train, ds_test, ds_val, dl_train, dl_test, dl_val, classes = outputs
-    print(f"[INFO] Classes detected: {classes}")
-    print(f"[INFO] Train batches: {len(dl_train)}, Val: {len(dl_val)}, Test: {len(dl_test)}")
+    print(f"... Classes detected: {classes}")
+    print(f"... Train batches: {len(dl_train)}, Val: {len(dl_val)}, Test: {len(dl_test)}")
 
 
 # python Models/SER_data.py --data_path ./TESS_df.pkl --dataset_name TESS --sample_rate 16000
