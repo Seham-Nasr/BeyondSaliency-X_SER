@@ -1,7 +1,7 @@
 # Dataset 
 /src/Models/data
 # trained model
-Model/
+/src/Models/checkpoint
 
 
 
