@@ -372,107 +372,15 @@ def CRP_xai(model, data, ima, LABEL_DICT, dataname, label, device):
     _,_,_,_,_, time_steps = saliency_map_processing(heatmap2, predicted_class, LABEL_DICT, "CRP", dataname, data)
     if label == "angry" or label == "fear" or label=="happy":        
             top_loudness_intervals, top_shrillness_intervals,top_jitter,top_shimmer = Top_human_ref(data,label)
-            calculate_similarity_scores(heatmap2, top_loudness_intervals, 
-                                        top_shrillness_intervals, top_jitter, top_shimmer, time_steps, 
-                                        "CRP", dataname, label,pred)
             imgify(heatmap2, symmetric=True)
     elif label == "sad" or label == "neutral":
             lowest_loudness_intervals, lowest_shrillness_intervals,lowest_jitter,lowest_shimmer = Top_human_ref(data, label) 
-            calculate_similarity_scores(heatmap2, lowest_loudness_intervals,
-                                         lowest_shrillness_intervals, lowest_jitter, lowest_shimmer,time_steps,
-                                           "CRP", dataname, label, pred)
             imgify(heatmap2, symmetric=True)
             
      
     else:
         raise ValueError("Unsupported label. Use 'angry', 'fear', 'happy', 'sad', or 'neutral'.")
     visulize_waveform(data, time_steps, "CRP", label,dataname)
-    return time_steps
-
-
-
-#________________________________________________
-def GradCAM(model, data, LABEL_DICT, dataname, label, device):
-    '''
-       # GradCAM for SER
-       Ref.Kim & Kwak (2024), Otsuki et al. (2020),Usha & Alex (2024))
-
-    '''
-    # Put model in eval mode
-    model.eval()
-    log_mel = get_log_melspe(data)
-    plot_log_melspe(data, sr=16000)
-    log_mel = torch.tensor(log_mel).unsqueeze(0).unsqueeze(0)  
-    log_mel = log_mel.to(device).float()
-    # Forward input
-    output = model(log_mel)
-    predicted_class = output.argmax(dim=1).item()
-
-    # Grad-CAM on the last conv layer
-    gradcam = LayerGradCam(model, model.layer2)
-    attributions = gradcam.attribute(log_mel, target=predicted_class)
-
-    # Upsample to input size (128x128 or similar)
-    upsampled_attr = LayerAttribution.interpolate(attributions, log_mel.shape[2:])
-    gradcamp_array = upsampled_attr.cpu().detach().numpy()
-    gradcamp_array = np.squeeze(gradcamp_array)  # Remove batch and channel dimensions
-
-    # Visualize
-    sr = 16000  # Sample rate
-    n_mels = gradcamp_array.shape[0]  # Number of mel bands
-    hop_length = 240  # Hop length used in mel spectrogram generation
-
-    # x-axis time in seconds
-    frames = np.arange(gradcamp_array.shape[1])
-    times = librosa.frames_to_time(frames, sr=sr, hop_length=hop_length)
-    
-    #y-axis frequency in Hz
-    mel_freqs = librosa.mel_frequencies(n_mels=n_mels, fmin=0, fmax=sr/2)
-
-    # Ensure directory exists
-    output_dir = "Results_outputs"
-    os.makedirs(output_dir, exist_ok=True)
-    plt.figure(figsize=(10, 4))
-    plt.imshow(gradcamp_array, cmap='jet',  origin='lower', aspect='auto', extent=(times[0], times[-1], mel_freqs[0], mel_freqs[-1]))
-    #plt.title(f"Gad-CAM for class: {LABEL_DICT[predicted_class]}, Dataset: {dataname}")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Frequency (Hz)")
-    plt.colorbar()
-    plt.show()
-
-    # Save plot
-    plt.imshow(gradcamp_array, cmap='jet',  origin='lower', aspect='auto', extent=(times[0], times[-1], mel_freqs[0], mel_freqs[-1]))
-    #plt.title(f"Grad-CAM for class: {LABEL_DICT[predicted_class]}, Dataset: {dataname}")
-    plt.xlabel("Time (s)")
-    plt.ylabel("Frequency (Hz)")
-    plt.colorbar()
-
-    # Construct filename
-    filename = f"gradcam_{LABEL_DICT[predicted_class]}.png"
-    save_path = os.path.join(output_dir, filename)
-    plt.savefig(save_path, bbox_inches='tight')
-    plt.close()
-    if LABEL_DICT[predicted_class] == label:
-        pred = True
-    else:
-        pred = False
-    _,_,_,_,_, time_steps = saliency_map_processing(upsampled_attr, predicted_class, LABEL_DICT, "GradCam", dataname, data)
-    if label == "angry" or label == "fear" or label=="happy":        
-            top_loudness_intervals, top_shrillness_intervals,top_jitter,top_shimmer = Top_human_ref(data,label)
-            calculate_similarity_scores(upsampled_attr, top_loudness_intervals, 
-                                        top_shrillness_intervals, top_jitter, top_shimmer, time_steps, 
-                                        "GradCam", dataname, label,pred)
-    elif label == "sad" or label == "neutral":
-            lowest_loudness_intervals, lowest_shrillness_intervals,lowest_jitter,lowest_shimmer = Top_human_ref(data, label) 
-            calculate_similarity_scores(upsampled_attr, lowest_loudness_intervals,
-                                         lowest_shrillness_intervals, lowest_jitter, lowest_shimmer,time_steps,
-                                           "GradCam", dataname, label, pred)
-            
-     
-    else:
-        print(label)
-        raise ValueError("Unsupported label. Use 'angry', 'fear', 'happy', 'sad', or 'neutral'.")
-    visulize_waveform(data, time_steps, "GradCam", label,dataname)
     return time_steps
 
 #_________________________________________________
@@ -572,14 +480,8 @@ def Occlusion_xai(model, data, LABEL_DICT, dataname, label, device):
     #segment_and_visualize(data, upsampled_attr)
     if label == "angry" or label == "fear" or label=="happy":     
             top_loudness_intervals, top_shrillness_intervals,top_jitter, top_shimmer = Top_human_ref(data,label)            
-            calculate_similarity_scores(att_map, top_loudness_intervals, 
-                                        top_shrillness_intervals, top_jitter, top_shimmer, time_steps, 
-                                        "Occlusion sensitivity", dataname, label,pred)
     elif label == "sad" or label == "neutral":
             lowest_loudness_intervals, lowest_shrillness_intervals,lowest_jitter, lowest_shimmer= Top_human_ref(data, label) 
-            calculate_similarity_scores(att_map, lowest_loudness_intervals,
-                                         lowest_shrillness_intervals, lowest_jitter, lowest_shimmer,time_steps,
-                                           "Occlusion sensitivity", dataname, label,pred)
     else:
         raise ValueError("Unsupported label. Use 'angry', 'fear', 'happy', 'sad', or 'neutral'.")
     visulize_waveform(data, time_steps, "Occlusion sensitivity", label,dataname)
@@ -614,9 +516,7 @@ def saliency_map_processing(upsampled_attr, predicted_class, LABEL_DICT, xai_met
     #upsampled_attr[upsampled_attr < threshold] = 0  # Set low-importance regions to zero
     #print(f"Min value (blue): {upsampled_attr.min().item():.4f}")
     #print(f"Max value (red): {upsampled_attr.max().item():.4f}")
-    if xai_method == "GradCam":
-        saliency_map = upsampled_attr.squeeze(0).cpu().detach()
-    elif xai_method == "Occlusion sensitivity":
+    if xai_method == "Occlusion sensitivity":
         saliency_map = upsampled_attr
     elif xai_method == "CRP":
         saliency_map = upsampled_attr.squeeze(0).cpu().detach()
