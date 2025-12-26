@@ -1,10 +1,12 @@
 # Dataset 
 /src/Models/data
+src/XAI/data/*.pkl
+src/XAI/data/
 # trained model
 /src/Models/checkpoint
 
-
-
-
-
 #files
+#Results
+src/feature_stats.csv
+src/Results_outputs/
+src/outputs_Examples/
