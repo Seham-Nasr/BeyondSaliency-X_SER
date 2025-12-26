@@ -55,6 +55,7 @@ def main():
     ):
         print("=========================================")
         print(f"Dataset: {data_setname}")
+        print(f"Dataset Path: {data_path}")
         print(f"XAI Method: {XAI_method}")
         print(f"Emotion: {Emotion}")
         print("=========================================")

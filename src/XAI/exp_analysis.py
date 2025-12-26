@@ -1,4 +1,5 @@
 from Models.trainSER import ResNetSmall
+from pathlib import Path
 from Models.SER_data import *
 from XAI.xAIutils import *
 from XAI.supplies import *
@@ -9,7 +10,7 @@ def explanation_analysis(data_setname, data_path, XAI_method, Emotion):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     #_____________________________dataset 1____________________________________
     if data_setname == "Crema-D":
-        data_path = data_path # Path to the audio files for Crema-D
+        data_path = "../src/Models/data/Crema-D/AudioWAV/" # Path to the audio files for Crema-D
         LABEL_DICT = {0:'fear', 1:'neutral', 2:'happy',3:'angry', 4:'disgust', 5:'surprise',6:'sad'}
         LABELS = list(LABEL_DICT.values())
         #process_dataset(data_path=data_path,data_setname=data_setname)
@@ -67,11 +68,11 @@ def explanation_analysis(data_setname, data_path, XAI_method, Emotion):
         index = instance_map[Emotion]
         ima = ds_test.data[index][1]
         label = ds_test.labels[index]
-        data = ds_test.data[index][0]
-        
+        data = Path(ds_test.data[index][0])
+        data = Path("Models") / data # Adjust path if necessary
         print(data)
         # Prediction
-        pred = get_prediction(model, data=data)
+        pred = get_prediction(model,data=str(data))
         print(f"Predicted label: {LABEL_DICT[pred]}")
         print(f"True Label: {label} (Maps to: {LABEL_DICT[label]})")
 
@@ -104,7 +105,7 @@ def explanation_analysis(data_setname, data_path, XAI_method, Emotion):
         
  #____________________________________dataset: 2_________________________
     elif data_setname == "TESS":
-        data_path = "../src/Models/TESS/tess/tess/"# Path to the audio files for Crema-D
+        data_path = "../src/Models/data/TESS/tess/tess/"# Path to the audio files for Crema-D
         LABEL_DICT = {0:'fear', 1:'neutral', 2:'happy',3:'angry', 4:'disgust', 5:'surprise',6:'sad'}
         LABELS = list(LABEL_DICT.values())
         ds_train, ds_test, ds_val, dl_train, dl_test, dl_val, LABELS = process_dataset(
@@ -149,8 +150,10 @@ def explanation_analysis(data_setname, data_path, XAI_method, Emotion):
         index = instance_map[Emotion]  # here to change  
         ima = ds_test.data[index][1]
         label = ds_test.labels[index]
-        data = ds_test.data[index][0]
-        pred = get_prediction(model, data = data)
+        data = Path("Models") / data # Adjust path if necessary
+        print(data)
+        # Prediction
+        pred = get_prediction(model,data=str(data))
         print(f"Predicted label: {LABEL_DICT[pred]}")
         print("True Label: ",label, "Maps to: ", LABEL_DICT[label])
         #data = "../" + data
